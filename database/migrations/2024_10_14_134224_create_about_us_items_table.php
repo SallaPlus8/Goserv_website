@@ -14,6 +14,7 @@ return new class extends Migration
         Schema::create('about_us_items', function (Blueprint $table) {
             $table->id();
             $table->json('title');
+            $table->string('slug')->unique();
             $table->foreignId('about_us_id')->constrained('about_us')->onDelete('cascade'); // Ensure the table name is 'about_us'
             $table->timestamps();
         });

@@ -14,6 +14,7 @@ return new class extends Migration
         Schema::create('sections', function (Blueprint $table) {
             $table->id();
             $table->json('title');  // حقل متعدد اللغات
+            $table->string('slug')->unique();
             $table->json('desc');   // حقل متعدد اللغات
             $table->string('image')->nullable();
             $table->string('link')->nullable();

@@ -12,6 +12,7 @@ class CreateSectionItemsTable extends Migration
             $table->id();
             $table->foreignId('section_id')->constrained()->onDelete('cascade'); // ارتباط مع جدول sections
             $table->json('title');  // لدعم الترجمة
+            $table->string('slug')->unique();
             $table->json('desc');   // لدعم الترجمة
             $table->timestamps();
         });

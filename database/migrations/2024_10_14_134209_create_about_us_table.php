@@ -15,6 +15,7 @@ return new class extends Migration
             $table->id(); // This creates an 'unsigned big integer' by default
             $table->json('desc1');
             $table->json('desc2');
+            $table->string('slug')->unique();
             $table->timestamps();
         });
     }

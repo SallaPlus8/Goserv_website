@@ -15,6 +15,7 @@ return new class extends Migration
             $table->id();
             $table->foreignId('section_id')->constrained()->onDelete('cascade'); // ارتباط مع جدول sections
             $table->json('title');  // لدعم الترجمة
+            $table->string('slug')->unique();
             $table->timestamps();
         });
     }

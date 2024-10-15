@@ -15,7 +15,8 @@ return new class extends Migration
             $table->id();
             $table->foreignId('category_id')->constrained()->onDelete('cascade'); // ارتباط مع جدول categories
             $table->string('icon');
-            $table->json('name'); 
+            $table->json('name');
+            $table->string('slug')->unique();
             $table->timestamps();
         });
     }

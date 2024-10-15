@@ -16,7 +16,7 @@ return new class extends Migration
             $table->string('image'); // صورة المقال
             $table->string('title_en'); // عنوان المقال
             $table->string('title_ar'); // عنوان المقال
-
+            $table->string('slug')->unique();
             $table->foreignId('user_id')->constrained()->onDelete('cascade'); // العلاقة مع جدول المستخدمين
             $table->text('content_en'); // محتوى المقال باللغة الإنجليزية
             $table->text('content_ar'); // محتوى المقال باللغة العربية

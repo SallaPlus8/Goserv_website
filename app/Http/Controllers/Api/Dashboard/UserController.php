@@ -5,6 +5,7 @@ namespace App\Http\Controllers\Api\Dashboard;
 use App\Http\Controllers\Controller;
 use App\Http\Requests\Api\Dashboard\UserRequest;
 use App\Helpers\ApiResponse; // Import your ApiResponse helper
+use App\Http\Resources\Dashboard\UserResource;
 use App\Services\Api\Dashboard\UserService;
 use Illuminate\Http\Request;
 
@@ -20,7 +21,7 @@ class UserController extends Controller
     public function index()
     {
         $users = $this->userService->getAllUsers();
-        return ApiResponse::sendResponse(200, 'Users retrieved successfully', $users);
+        return ApiResponse::sendResponse(200, 'Users retrieved successfully', UserResource::collection($users));
     }
 
     public function store(UserRequest $request)

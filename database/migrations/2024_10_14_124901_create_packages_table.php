@@ -16,7 +16,8 @@ return new class extends Migration
             $table->string('image'); //
             $table->decimal('price', 8, 2); //
             $table->json('name'); //
-            $table->foreignId('category_id')->constrained()->onDelete('cascade'); //  
+            $table->string('slug')->unique();
+            $table->foreignId('category_id')->constrained()->onDelete('cascade'); //
             $table->timestamps();
         });
     }
