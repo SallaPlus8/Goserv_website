@@ -3,63 +3,64 @@
 namespace App\Http\Controllers\Api\Dashboard;
 
 use App\Http\Controllers\Controller;
+use App\Http\Requests\Api\Dashboard\UserRequest;
+use App\Helpers\ApiResponse; // Import your ApiResponse helper
+use App\Services\Api\Dashboard\UserService;
 use Illuminate\Http\Request;
 
 class UserController extends Controller
 {
-    /**
-     * Display a listing of the resource.
-     */
+    protected $userService;
+
+    public function __construct(UserService $userService)
+    {
+        $this->userService = $userService;
+    }
+
     public function index()
     {
-        //
+        $users = $this->userService->getAllUsers();
+        return ApiResponse::sendResponse(200, 'Users retrieved successfully', $users);
     }
 
-    /**
-     * Show the form for creating a new resource.
-     */
-    public function create()
+    public function store(UserRequest $request)
     {
-        //
+        $data = $request->validated(); // Get validated data
+        $user = $this->userService->createUser($data);
+        return ApiResponse::sendResponse(201, 'User created successfully', $user);
     }
 
-    /**
-     * Store a newly created resource in storage.
-     */
-    public function store(Request $request)
+    public function show($id)
     {
-        //
+        $user = $this->userService->getUserById($id);
+
+        if ($user) {
+            return ApiResponse::sendResponse(200, 'User retrieved successfully', $user);
+        }
+
+        return ApiResponse::sendResponse(404, 'User not found');
     }
 
-    /**
-     * Display the specified resource.
-     */
-    public function show(string $id)
+    public function update(UserRequest $request, $id)
     {
-        //
+        $data = $request->validated(); // Get validated data
+        $user = $this->userService->updateUser($id, $data);
+
+        if ($user) {
+            return ApiResponse::sendResponse(200, 'User updated successfully', $user);
+        }
+
+        return ApiResponse::sendResponse(404, 'User not found');
     }
 
-    /**
-     * Show the form for editing the specified resource.
-     */
-    public function edit(string $id)
+    public function destroy($id)
     {
-        //
-    }
+        $deleted = $this->userService->deleteUser($id);
 
-    /**
-     * Update the specified resource in storage.
-     */
-    public function update(Request $request, string $id)
-    {
-        //
-    }
+        if ($deleted) {
+            return ApiResponse::sendResponse(200, 'User deleted successfully');
+        }
 
-    /**
-     * Remove the specified resource from storage.
-     */
-    public function destroy(string $id)
-    {
-        //
+        return ApiResponse::sendResponse(404, 'User not found');
     }
 }

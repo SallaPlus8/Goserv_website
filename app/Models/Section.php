@@ -14,5 +14,9 @@ class Section extends Model
     public $translatable = ['title', 'desc'];
 
     protected $fillable = ['title', 'desc', 'image', 'link'];
-
+    
+    public function items()
+    {
+        return $this->hasMany(SectionItem::class);
+    }
 }
