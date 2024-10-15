@@ -14,5 +14,8 @@ class SectionItem extends Model
     public $translatable = ['title', 'desc'];
 
     protected $fillable = ['section_id', 'title', 'desc'];
-
+    public function section()
+    {
+        return $this->belongsTo(Section::class);
+    }
 }
